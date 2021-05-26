@@ -3,37 +3,66 @@
     <div>logo</div>
     <div>
       <form class="d-flex mt-3 mb-3">
-    <div>
-     <input class="form-control" type="text" placeholder="Find your movie"> 
-    </div>
-    <div class="ms-3">
-      <button class="btn btn-primary mc_btn"> 
-        Search
-      </button>
-    </div>
-  </form>
+        <div>
+          <!-- con v-model faccio il binding di query, ovvero del testo inserito nell'input -->
+          <!-- con @keyup.enter faccio partire la funzione startSearch premendo invio -->
+          <input
+            v-model.trim="query" 
+            @keyup.enter="startSearch"
+            class="form-control"
+            type="text"
+            placeholder="Find your movie"
+          />
+        </div>
+        <div class="ms-3">
+          <!-- al click sul bottone faccio partire la funzione startSearch-->
+            <!-- .prevent evita che si ricarichi la pagina ogni volta che clicco -->
+          <button 
+            @click.prevent="startSearch" 
+            class="btn btn-primary mc_btn"
+          >
+            Search
+          </button>
+        </div>
+      </form>
     </div>
   </header>
 </template>
 
 <script>
 export default {
-  name: 'Header'
-}
+  name: "Header",
+  data() {
+    // in data carico la variabile query
+    return {
+      query: "",
+    };
+  },
+  methods: {
+    // funzione che fa partire la ricerca
+    startSearch() {
+      // $emit è un evento che viene letto dal padre (APP)
+      this.$emit("searchMovie", this.query);
+      console.log(this.query);
+      // svuoto la stringa di ricerca
+      this.query = "";
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>
 /* // importo le variabili */
-@import '../assets/style/vars.scss';
-  header{
-    background: $color-header;
-    height: 65px;
-    .mc_btn {
-      background-color: $color-btn;
-      border-color: transparent;
-      &:hover{
-        filter: brightness(1.2);
-      }
+@import "../assets/style/vars.scss";
+header {
+  background: $color-header;
+  height: 65px;
+  .mc_btn {
+    background-color: $color-btn;
+    border-color: transparent;
+    &:hover {
+      filter: brightness(1.2);
     }
   }
+}
 </style>
