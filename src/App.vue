@@ -1,14 +1,19 @@
 <template>
   <div id="app">
     <Header 
-     @search="this.searching"
+      @search="search" 
     />
-    <!-- :movie viene preso dalle props di Main -->
-    <!-- movies è il mio array di riferimento -->
+
     <Main 
-      v-for="movie in movies" 
-      :key="movie.id" 
-      :movie="movie" 
+      v-if="results.movie.length > 0" 
+      type="movie" 
+      :list="results.movie" 
+    />
+
+    <Main 
+      v-if="results.tv.length > 0" 
+      type="tv" 
+      :list="results.tv" 
     />
   </div>
 </template>
@@ -28,32 +33,46 @@ export default {
   },
   data() {
     return {
-      apiURL: "https://api.themoviedb.org/3/search/movie",
+      apiURL: "https://api.themoviedb.org/3/search/",
       apiKey: "8aba2f0fc3e09fb1de7523aaaf3513bc",
       query: "",
-      // array movies 
-      movies: [],
+      results: {
+        // array movies
+        movie: [],
+         // array tv
+        tv: [],
+      },
     };
   },
   methods: {
+    // funzione che richiama la funzione searching in movie e in tv
+    search(obj) {
+      if (obj.type === "all") {
+        this.searching(obj.text, "movie");
+        this.searching(obj.text, "tv");
+      }
+    },
     // funzione che permette di eseguire la chiamata API avviando la ricerca di query(del testo inserito dall'utente)
-    searching(query) {
-      this.query = query;
-      // console.log(query);
-      axios
-        .get(this.apiURL, {
-          params: {
-            api_key: this.apiKey,
-            query: this.query,
-            language: "it-IT",
-          },
-        })
-        .then((resp) => {
-          this.movies = resp.data.results;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    searching(query, type) {
+      if (query != "") {
+        this.query = query;
+        // console.log(query);
+        axios
+          .get(this.apiURL + type, {
+            params: {
+              api_key: this.apiKey,
+              query: this.query,
+              language: "it-IT",
+            },
+          })
+          .then((resp) => {
+            this.results[type] = resp.data.results;
+            console.log(this.results);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
   },
 };

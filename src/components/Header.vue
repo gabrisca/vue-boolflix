@@ -42,7 +42,7 @@ export default {
     // funzione che fa partire la ricerca
     startSearch() {
       // $emit è un evento che viene letto dal padre (APP)
-      this.$emit("search", this.textToSearch);
+      this.$emit("search", {text: this.textToSearch, type: 'all'} );
       console.log(this.textToSearch);
       // svuoto la stringa di ricerca
       this.textToSearch = "";
