@@ -1,15 +1,20 @@
 <template>
   <div id="app">
+
     <Header 
       @search="search" 
     />
 
+    <!-- vedo Main solo se l'array movie contiene qualcosa -->
+    <!-- binding di results.movie -->
     <Main 
       v-if="results.movie.length > 0" 
       type="movie" 
       :list="results.movie" 
     />
 
+    <!-- vedo Main solo se l'array tv contiene qualcosa -->
+    <!-- binding di results.tv -->
     <Main 
       v-if="results.tv.length > 0" 
       type="tv" 
@@ -45,7 +50,7 @@ export default {
     };
   },
   methods: {
-    // funzione che richiama la funzione searching in movie e in tv
+    // funzione che richiama la funzione searching sia in movie che in tv
     search(obj) {
       if (obj.type === "all") {
         this.searching(obj.text, "movie");
@@ -54,6 +59,7 @@ export default {
     },
     // funzione che permette di eseguire la chiamata API avviando la ricerca di query(del testo inserito dall'utente)
     searching(query, type) {
+      // se query non è un campo vuoto...
       if (query != "") {
         this.query = query;
         // console.log(query);

@@ -11,7 +11,7 @@
             @keyup.enter="startSearch"
             class="form-control"
             type="text"
-            placeholder="Find your movie"
+            placeholder="Find your movie/TV show"
           />
         </div>
         <div class="ms-3">
