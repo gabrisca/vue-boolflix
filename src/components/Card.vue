@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <ul>
+    <ul class="col-sm-6 col-md-3 col-lg-2 m-3 p-sm-2 p-md-3">
       <li>
         <span>Title: </span>
          <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
@@ -30,10 +29,11 @@
       </li>
       <li>
         <span>Vote Average: </span>
-        <h4>{{ card.vote_average }}</h4>
+        <!-- richiamo la funzione che arrotonda vote.average e lo trasforma in un numero da 1 a 5 -->
+        <h4>{{getCeil(card.vote_average)}} </h4>
+        <i class="fas fa-star"></i>
       </li>
     </ul>
-  </div>
 </template>
 
 <script>
@@ -42,19 +42,25 @@ export default {
   props: { // props mette in comunicazione Card con il genitore Main
     card: Object, // card viene passato dal genitore
   },
+  methods: {
+    getCeil(num){
+      let n = Math.ceil(num)/2
+      return Math.ceil(n)
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 // importo le variabili 
 @import "../assets/style/vars.scss";
-div {
   ul {
-  position: relative;
     background-color: $color-header;
     list-style: none;
     cursor: pointer;
     transition: all 0.8s;
+    padding: 30px;
+    min-height: 350px;
     &:hover {
       filter: brightness(1.4);
       transform: scale(1.1);
@@ -65,12 +71,16 @@ div {
         font-size: 0.8em;
         text-transform: uppercase;
       }
+      h2,
+      h3,
+      h4 {
+        font-size: 1.2em;
+      }
       img {
         height: 1.5rem;
         padding-bottom: 7px;
         margin-left: 7px;
       }
     }
-  }
 }
 </style>

@@ -1,11 +1,13 @@
 <template>
-  <main class="container mt-5 mb-5">
-    <h1 class="text-center mb-3">{{ titles[type] }}</h1>
+  <main class="container">
+    <h1 class="text-center mt-3 mb-3">{{ titles[type] }}</h1>
+    <div class="row d-flex justify-content-center mt-5 mb-5">
     <Card 
       v-for="card in list" 
       :key="card.id" 
       :card="card" 
     />
+    </div>
   </main>
 </template>
 
