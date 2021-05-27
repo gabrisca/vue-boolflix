@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header 
-     @searchMovie="this.searching"
+     @search="this.searching"
     />
     <!-- :movie viene preso dalle props di Main -->
     <!-- movies è il mio array di riferimento -->
@@ -39,7 +39,7 @@ export default {
     // funzione che permette di eseguire la chiamata API avviando la ricerca di query(del testo inserito dall'utente)
     searching(query) {
       this.query = query;
-      console.log(query);
+      // console.log(query);
       axios
         .get(this.apiURL, {
           params: {

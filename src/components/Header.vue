@@ -4,10 +4,10 @@
     <div>
       <form class="d-flex mt-3 mb-3">
         <div>
-          <!-- con v-model faccio il binding di query, ovvero del testo inserito nell'input -->
+          <!-- con v-model faccio il binding di textToSearch, ovvero del testo inserito nell'input -->
           <!-- con @keyup.enter faccio partire la funzione startSearch premendo invio -->
           <input
-            v-model.trim="query" 
+            v-model.trim="textToSearch" 
             @keyup.enter="startSearch"
             class="form-control"
             type="text"
@@ -33,19 +33,19 @@
 export default {
   name: "Header",
   data() {
-    // in data carico la variabile query
+    // in data carico la variabile textToSearch
     return {
-      query: "",
+      textToSearch: "",
     };
   },
   methods: {
     // funzione che fa partire la ricerca
     startSearch() {
       // $emit è un evento che viene letto dal padre (APP)
-      this.$emit("searchMovie", this.query);
-      console.log(this.query);
+      this.$emit("search", this.textToSearch);
+      console.log(this.textToSearch);
       // svuoto la stringa di ricerca
-      this.query = "";
+      this.textToSearch = "";
     },
   },
 };
