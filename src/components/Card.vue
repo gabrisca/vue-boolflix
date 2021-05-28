@@ -35,8 +35,8 @@
       <span>Vote Average: </span>
       <!-- richiamo la funzione che arrotonda vote.average e lo trasforma in un numero da 1 a 5 -->
       <!-- <h4>{{getCeil(card.vote_average)}} </h4> -->
-      <!-- stampo direttamente tante stelline quanto è il voto (1-5) con un v-for -->
       <div>
+      <!-- stampo direttamente tante stelline quanto è il numero del voto con un v-for -->
         <i
           v-for="(star, index) in getCeil(card.vote_average)"
           :key="index"

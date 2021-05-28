@@ -6,7 +6,11 @@
       @search="search" 
     />
 
-    <h1 v-if='results.movie.length === 0 && results.movie.length === 0'>nessun risultato</h1>
+    <!-- se show è true mostro l'h1 e il relativo messaggio -->
+    <div class="d-flex justify-content-center align-items-center mc_msg">
+      <h1 v-if='this.show'>nessun risultato trovato</h1>
+      <!-- <h1 v-if='results.movie.length === 0 && results.movie.length === 0'>nessun risultato</h1> -->
+    </div>
 
     <!-- vedo Main solo se l'array movie contiene qualcosa -->
     <!-- binding di results.movie -->
@@ -44,6 +48,7 @@ export default {
       apiURL: "https://api.themoviedb.org/3/search/",
       apiKey: "8aba2f0fc3e09fb1de7523aaaf3513bc",
       query: "",
+      show: false,
       results: {
         // array movies
         movie: [],
@@ -65,6 +70,7 @@ export default {
       // se query non è un campo vuoto...
       if (query != "") {
         this.query = query;
+        this.show = false;
         // ... effetto la chiamata API
         axios
           .get(this.apiURL + type, {
@@ -78,9 +84,11 @@ export default {
             // salvo la risposta nel relativo array (movie o tv)
             this.results[type] = resp.data.results;
             console.log(this.results);
-            // if(){
-
-            // }
+            // se non è stato trovato nessun risoltato trasformo show in true.
+            // v-if='show = true' mostra l'h1 con il relativo messaggio
+            if(this.results.movie.length === 0 && this.results.tv.length === 0){
+              this.show = true
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -94,4 +102,10 @@ export default {
 <style lang="scss">
 // importo il foglio di stile general.scss
 @import "@/assets/style/general";
+.mc_msg {
+  height: 80vh;
+  position: absolute;
+  left: 50%;  
+  transform: translate(-50%);
+}
 </style>
