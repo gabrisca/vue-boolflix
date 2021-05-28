@@ -2,7 +2,7 @@
   <main class="container">
     <!-- inserisco il titolo in base al type -->
     <h1 class="text-center mt-3 mb-3">{{ titles[type] }}</h1>
-    <div class="row d-flex justify-content-center mt-5 mb-5">
+    <div class="row d-flex justify-content-center mt-2 mb-2">
     <Card 
       v-for="card in list" 
       :key="card.id" 
