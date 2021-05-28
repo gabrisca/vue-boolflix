@@ -1,6 +1,8 @@
 <template>
   <header class="d-flex justify-content-between align-items-center ps-5 pe-5">
-    <div>logo</div>
+    <div class="logo">
+      <span>boolflix</span>
+    </div>
     <div>
       <form class="d-flex mt-3 mb-3">
         <div>
@@ -57,6 +59,12 @@ export default {
 header {
   background: $color-header;
   height: 65px;
+  div.logo {
+    color: $color-btn;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 5px;
+  }
   .mc_btn {
     background-color: $color-btn;
     border-color: transparent;

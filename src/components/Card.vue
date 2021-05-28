@@ -1,121 +1,153 @@
 <template>
-    <ul class="col-sm-6 col-md-3 col-lg-2 mb-sm-5 m-5 p-sm-2 p-md-3">
-      <li>
-        <span>Title: </span>
-         <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
+  <ul class="col-sm-6 col-md-3 col-lg-2 mb-sm-5 m-5 p-sm-2 p-md-2 p-lg-2">
+    <li>
+      <span>Title: </span>
+      <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
         film e serie tv hanno campi di risposta differenti (title e name) 
         Utilizzo un 'or logico ||'-->
-        <h2>{{ card.title || card.name }}</h2>
-      </li>
-      <li>
-        <span>Original Title: </span>
-        <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
+      <h2>{{ card.title || card.name }}</h2>
+    </li>
+    <li>
+      <span>Original Title: </span>
+      <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
         film e serie tv hanno campi di risposta differenti (original_title e original_name) 
         Utilizzo un 'or logico ||'-->
-        <h3>{{ card.original_title || card.original_name }}</h3>
-      </li>
-      <li>
-        <span class="d-block">Original Language: </span>
-        <h4 class="d-inline">{{ card.original_language }}</h4>
-        <!-- se original_language è uguale a 'en' o 'it' aggiungo l'immagine di una bandierina -->
-        <!-- binding di src che concatena il percorso dell'immagine + original_language + estensione immagine-->
-        <!-- img-fluid rende responsive l'immagine -->
-        <img 
-          v-if="card.original_language === 'en' || card.original_language === 'it'" 
-          :src="require(`../assets/img/flag-${card.original_language}.png`)" 
-          :alt="'flag-'+card.original_language"
-          class="img-fluid"   
+      <h3>{{ card.original_title || card.original_name }}</h3>
+    </li>
+    <li>
+      <span class="d-block">Original Language: </span>
+      <h4 class="d-inline">{{ card.original_language }}</h4>
+      <!-- se original_language è uguale a 'en' o 'it' aggiungo l'immagine di una bandierina -->
+      <!-- binding di src che concatena il percorso dell'immagine + original_language + estensione immagine-->
+      <!-- img-fluid rende responsive l'immagine -->
+      <img
+        v-if="
+          card.original_language === 'en' || card.original_language === 'it'
+        "
+        :src="require(`../assets/img/flag-${card.original_language}.png`)"
+        :alt="'flag-' + card.original_language"
+        class="img-fluid"
+      />
+      <!-- percorso alternativo :src img -->
+      <!-- :src="require('../assets/img/flag-'+[card.original_language]+'.png')"  -->
+    </li>
+    <li>
+      <span>Vote Average: </span>
+      <!-- richiamo la funzione che arrotonda vote.average e lo trasforma in un numero da 1 a 5 -->
+      <!-- <h4>{{getCeil(card.vote_average)}} </h4> -->
+      <!-- stampo direttamente tante stelline quanto è il voto (1-5) con un v-for -->
+      <div>
+        <i
+          v-for="(star, index) in getCeil(card.vote_average)"
+          :key="index"
+          class="fas fa-star"
         >
-        <!-- percorso alternativo :src img -->
-        <!-- :src="require('../assets/img/flag-'+[card.original_language]+'.png')"  -->
-      </li>
-      <li>
-        <span>Vote Average: </span>
-        <!-- richiamo la funzione che arrotonda vote.average e lo trasforma in un numero da 1 a 5 -->
-        <h4>{{getCeil(card.vote_average)}} </h4>
-        <i class="fas fa-star"></i>
-      </li>
+        </i>
+      </div>
+    </li>
+    <li>
+      <span>Overview: </span>
+      <p>
+        {{ substringText() }}
+      </p>
+    </li>
 
-      <!-- aggiungo l'immaginde di copertina... -->
-      <!-- <img :src="('https://image.tmdb.org/t/p/w342'+[card.poster_path])" alt=""> -->
-      <!-- solo se l'oggetto ha un'immagine di coperina -->
-      <img 
-        v-if="card.poster_path"
-        class="img-fluid mc_poster" 
-        :src="(getUrl())" 
-        alt="">
-    </ul>
+    <!-- aggiungo l'immaginde di copertina... -->
+    <!-- <img :src="('https://image.tmdb.org/t/p/w342'+[card.poster_path])" alt=""> -->
+    <!-- solo se l'oggetto ha un'immagine di coperina -->
+    <img
+      v-if="card.poster_path"
+      class="img-fluid mc_poster"
+      :src="getUrl()"
+      alt=""
+    />
+  </ul>
 </template>
 
 <script>
 export default {
   name: "Card",
-  props: { // props mette in comunicazione Card con il genitore Main
+  props: {
+    // props mette in comunicazione Card con il genitore Main
     card: Object, // card viene passato dal genitore
   },
   methods: {
     // funzione per trasformare il voto in numero intero da 1 a 5
-    getCeil(num){
-      let n = Math.ceil(num)/2
-      return Math.ceil(n)
+    getCeil(num) {
+      let n = Math.ceil(num) / 2;
+      return Math.ceil(n);
     },
     // funzione che restituisce il percorso dell'immagine poster
-    getUrl(){
-      let url= 'https://image.tmdb.org/t/p/w342'
-      let path = [this.card.poster_path]
-      return url + path
-    }
+    getUrl() {
+      let url = "https://image.tmdb.org/t/p/w342";
+      let path = [this.card.poster_path];
+      return url + path;
+    },
+    // funzione che fa visulaizzare solo i primi 100 caratteri di un testo aggiungendo alla fine '...'
+    substringText() {
+      return this.card.overview.substring(0, 100) + "...";
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// importo le variabili 
+// importo le variabili
 @import "../assets/style/vars.scss";
-  ul {
-    box-shadow: 0px 0px 3px white;
-    position: relative;
-    background-color: $color-header;
-    list-style: none;
-    cursor: pointer;
-    transition: all 0.8s;
-    padding: 30px;
-    height: 350px;
-    margin-bottom: 50px;
+ul {
+  box-shadow: 0px 0px 3px white;
+  position: relative;
+  background-color: $color-header;
+  list-style: none;
+  cursor: pointer;
+  transition: all 0.8s;
+  margin-bottom: 50px;
+  padding: 30px;
+  height: 350px;
+  overflow-y: hidden;
+  overflow-wrap: break-word;
+  &:hover {
+    filter: brightness(1.4);
+    transform: scale(1.1);
+  }
+  li {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    span {
+      color: $color-btn;
+      font-size: 0.8em;
+      text-transform: uppercase;
+    }
+    h2,
+    h3,
+    h4 {
+      font-size: 0.9em;
+    }
+    p {
+      font-size: 0.9em;
+    }
+    img {
+      height: 1.5rem;
+      padding-bottom: 7px;
+      margin-left: 7px;
+    }
+    div {
+      i {
+        color: darkgoldenrod;
+      }
+    }
+  }
+  img.mc_poster {
+    display: block;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transition: all 0.6s;
     &:hover {
-      filter: brightness(1.4);
-      transform: scale(1.1);
+      filter: opacity(0);
     }
-    li {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      span {
-        color: $color-btn;
-        font-size: 0.8em;
-        text-transform: uppercase;
-      }
-      h2,
-      h3,
-      h4 {
-        font-size: 1.2em;
-      }
-      img {
-        height: 1.5rem;
-        padding-bottom: 7px;
-        margin-left: 7px;
-      }
-    }
-    img.mc_poster{
-      display: block;
-      position: absolute;
-      top: 0%;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      transition: all 0.6s;
-      &:hover {
-        filter: opacity(0);
-      }
-    }
+  }
 }
 </style>
