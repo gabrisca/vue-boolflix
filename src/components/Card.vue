@@ -1,5 +1,5 @@
 <template>
-    <ul class="col-sm-6 col-md-3 col-lg-2 m-3 p-sm-2 p-md-3">
+    <ul class="col-sm-6 col-md-3 col-lg-2 mb-sm-5 m-5 p-sm-2 p-md-3">
       <li>
         <span>Title: </span>
          <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
@@ -22,10 +22,12 @@
         <!-- img-fluid rende responsive l'immagine -->
         <img 
           v-if="card.original_language === 'en' || card.original_language === 'it'" 
-          :src="require('../assets/img/flag-'+[card.original_language]+'.png')" 
+          :src="require(`../assets/img/flag-${card.original_language}.png`)" 
           :alt="'flag-'+card.original_language"
           class="img-fluid"   
         >
+        <!-- percorso alternativo :src img -->
+        <!-- :src="require('../assets/img/flag-'+[card.original_language]+'.png')"  -->
       </li>
       <li>
         <span>Vote Average: </span>
@@ -33,6 +35,15 @@
         <h4>{{getCeil(card.vote_average)}} </h4>
         <i class="fas fa-star"></i>
       </li>
+
+      <!-- aggiungo l'immaginde di copertina... -->
+      <!-- <img :src="('https://image.tmdb.org/t/p/w342'+[card.poster_path])" alt=""> -->
+      <!-- solo se l'oggetto ha un'immagine di coperina -->
+      <img 
+        v-if="card.poster_path"
+        class="img-fluid mc_poster" 
+        :src="(getUrl())" 
+        alt="">
     </ul>
 </template>
 
@@ -43,9 +54,16 @@ export default {
     card: Object, // card viene passato dal genitore
   },
   methods: {
+    // funzione per trasformare il voto in numero intero da 1 a 5
     getCeil(num){
       let n = Math.ceil(num)/2
       return Math.ceil(n)
+    },
+    // funzione che restituisce il percorso dell'immagine poster
+    getUrl(){
+      let url= 'https://image.tmdb.org/t/p/w342'
+      let path = [this.card.poster_path]
+      return url + path
     }
   },
 };
@@ -55,17 +73,22 @@ export default {
 // importo le variabili 
 @import "../assets/style/vars.scss";
   ul {
+    box-shadow: 0px 0px 3px white;
+    position: relative;
     background-color: $color-header;
     list-style: none;
     cursor: pointer;
     transition: all 0.8s;
     padding: 30px;
-    min-height: 350px;
+    height: 350px;
+    margin-bottom: 50px;
     &:hover {
       filter: brightness(1.4);
       transform: scale(1.1);
     }
     li {
+      text-overflow: ellipsis;
+      overflow: hidden;
       span {
         color: $color-btn;
         font-size: 0.8em;
@@ -80,6 +103,18 @@ export default {
         height: 1.5rem;
         padding-bottom: 7px;
         margin-left: 7px;
+      }
+    }
+    img.mc_poster{
+      display: block;
+      position: absolute;
+      top: 0%;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      transition: all 0.6s;
+      &:hover {
+        filter: opacity(0);
       }
     }
 }

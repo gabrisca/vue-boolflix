@@ -1,9 +1,12 @@
 <template>
   <div id="app">
 
+    <!-- all'evento search  -->
     <Header 
       @search="search" 
     />
+
+    <h1 v-if='results.movie.length === 0 && results.movie.length === 0'>nessun risultato</h1>
 
     <!-- vedo Main solo se l'array movie contiene qualcosa -->
     <!-- binding di results.movie -->
@@ -62,7 +65,7 @@ export default {
       // se query non è un campo vuoto...
       if (query != "") {
         this.query = query;
-        // console.log(query);
+        // ... effetto la chiamata API
         axios
           .get(this.apiURL + type, {
             params: {
@@ -72,8 +75,12 @@ export default {
             },
           })
           .then((resp) => {
+            // salvo la risposta nel relativo array (movie o tv)
             this.results[type] = resp.data.results;
             console.log(this.results);
+            // if(){
+
+            // }
           })
           .catch((error) => {
             console.log(error);
