@@ -33,16 +33,30 @@
     </li>
     <li>
       <span>Vote Average: </span>
+      <!-- se vote_average non è una stringa vuota... -->
       <!-- richiamo la funzione che arrotonda vote.average e lo trasforma in un numero da 1 a 5 -->
+      <!-- con position mostro 5 stelle vuote e sopra tante stelle piene in base al voto-->
       <!-- <h4>{{getCeil(card.vote_average)}} </h4> -->
-      <div>
-      <!-- stampo direttamente tante stelline quanto è il numero del voto con un v-for -->
-        <i
-          v-for="(star, index) in getCeil(card.vote_average)"
-          :key="index"
-          class="fas fa-star"
-        >
-        </i>
+      <!-- {{card.vote_average/2}} -->
+      <div 
+      v-if="card.vote_average != ''"
+      class="star">
+        <div class="star_empty">
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <div class="star_full">
+        <!-- stampo direttamente tante stelline quanto è il numero del voto con un v-for -->
+          <i
+            v-for="(star, index) in getCeil(card.vote_average)"
+            :key="index"
+            class="fas fa-star"
+          >
+          </i>
+        </div>
       </div>
     </li>
     <li>
@@ -59,7 +73,7 @@
       v-if="card.poster_path"
       class="img-fluid mc_poster"
       :src="getUrl()"
-      alt=""
+      :alt="`poster ${card.original_title}`"
     />
   </ul>
 </template>
@@ -131,11 +145,16 @@ ul {
       padding-bottom: 7px;
       margin-left: 7px;
     }
-    div {
-      i {
+    div.star {
+      position: relative;
+      .star_empty {
+        position: absolute;
         color: darkgoldenrod;
       }
-    }
+      .star_full {
+        color: darkgoldenrod;
+      }
+      }
   }
   img.mc_poster {
     display: block;

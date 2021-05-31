@@ -64,6 +64,7 @@ header {
     text-transform: uppercase;
     font-weight: 700;
     margin: 5px;
+    margin-right: 10px;
   }
   .mc_btn {
     background-color: $color-btn;
