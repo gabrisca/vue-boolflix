@@ -1,7 +1,6 @@
 <template>
   <div id="app">
 
-
     <!-- all'evento search  -->
     <Header 
       @search="search" 
@@ -9,7 +8,10 @@
 
     <!-- aggiungo un contenitore con background e descrizione pagina che visualizzo solo all'accesso -->
     <!-- utilizzo una condizione -->
-    <div class="position-relative" v-if="welcome">
+    <div 
+      v-if="welcome"
+      class="position-relative"
+    >
       <div class="welcome"></div>
       <div class="mc_bool position-absolute">
         <h1>boolflix</h1>
@@ -19,7 +21,12 @@
 
     <!-- se show è true mostro l'h1 e il relativo messaggio -->
     <div class="d-flex justify-content-center align-items-center mc_msg">
-      <h1 class="text-center" v-if='this.show'>nessun risultato trovato</h1>
+      <h1 
+        v-if='this.show'
+        class="text-center"
+      >
+       nessun risultato trovato
+      </h1>
       <!-- <h1 v-if='results.movie.length === 0 && results.movie.length === 0'>nessun risultato</h1> -->
     </div>
 
@@ -64,7 +71,7 @@ export default {
       results: {
         // array movies
         movie: [],
-         // array tv
+        // array tv
         tv: [],
       },
     };
