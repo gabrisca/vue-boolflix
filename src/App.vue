@@ -22,7 +22,7 @@
     <!-- se show è true mostro l'h1 e il relativo messaggio -->
     <div class="d-flex justify-content-center align-items-center mc_msg">
       <h1 
-        v-if='this.show'
+        v-if='show'
         class="text-center"
       >
        nessun risultato trovato
