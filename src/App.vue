@@ -68,10 +68,8 @@ export default {
       query: "",
       welcome: true, // se true mostro un elemento di default con background di 'benvenuto'. Dopo la chiamata API diventa false
       show: false, // utilizzo la variabile show per mostrare o no il messaggio 'nessun rislutato trovato'
-      results: {
-        // array movies
+      results: {  // oggetto che contiene due proprietà/array. Servono nel main per smistare i risultati in base al tipo
         movie: [],
-        // array tv
         tv: [],
       },
     };
@@ -79,6 +77,7 @@ export default {
   methods: {
     // funzione che richiama la funzione searching sia in movie che in tv
     // doppia chiamata API
+    // obj è il secondo parametro passato nell'$emit (in header)
     search(obj) {
       if (obj.type === "all") {
         this.searching(obj.text, "movie");
@@ -105,7 +104,7 @@ export default {
             // visualizzo la risposta nel relativo array di oggetti (movie o tv)
             this.results[type] = resp.data.results;
             console.log(this.results);
-            // se non è stato trovato nessun risoltato trasformo show in true.
+            // se non è stato trovato nessun risultato trasformo show in true.
             if(this.results.movie.length === 0 && this.results.tv.length === 0){
               this.show = true // v-if='show = true' mostra il messaggio 'Nessun risultato trovato'
             }

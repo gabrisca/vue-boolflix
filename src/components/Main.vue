@@ -1,6 +1,8 @@
 <template>
   <main class="container">
     <!-- inserisco il titolo in base al type -->
+    <!-- richiamo titles -->
+    <!-- utilizzo la bracket notation per ricevere la prop type -->
     <h1 class="text-center mt-3 mb-3">{{ titles[type] }}</h1>
     <div class="row d-flex justify-content-center mt-2 mb-2">
     <Card 
@@ -19,11 +21,12 @@ export default {
   components: { Card },
   name: "Main",
   props: { // props mette in comunicazione Main con il genitore App
-    type: String, // Main riceve type che è una stringa 
-    list: Array, // Main riceve list che è un Array da ciclare
+    type: String,
+    list: Array,
   },
   data() {
     return {
+      // creo un oggetto titles per visualizzare entrambi i titoli 
       titles: {
         movie: "Movies",
         tv: "TV Series",
