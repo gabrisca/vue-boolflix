@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <!-- ricevo l'evento search  -->
+    <!-- catturo l'evento search lanciato in header -->
     <Header 
       @search="search" 
     />

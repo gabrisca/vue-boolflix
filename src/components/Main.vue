@@ -20,7 +20,7 @@ import Card from "./Card.vue";
 export default {
   components: { Card },
   name: "Main",
-  props: { // props mette in comunicazione Main con il genitore App
+  props: { // App passa a Main i seguenti dati
     type: String,
     list: Array,
   },

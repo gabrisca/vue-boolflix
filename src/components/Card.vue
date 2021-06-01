@@ -81,7 +81,7 @@
       :src="getUrl()"
       :alt="`poster ${card.original_title}`"
     />
-    
+
   </ul>
 </template>
 
@@ -89,8 +89,8 @@
 export default {
   name: "Card",
   props: {
-    // props mette in comunicazione Card con il genitore Main
-    card: Object, // card viene passato dal genitore
+    // Main.vue passa a Card.vue i seguenti dati...
+    card: Object,
   },
   methods: {
     // funzione per trasformare il voto in numero intero da 1 a 5
