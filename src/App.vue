@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <!-- all'evento search  -->
+    <!-- ricevo l'evento search  -->
     <Header 
       @search="search" 
     />
@@ -66,8 +66,8 @@ export default {
       apiURL: "https://api.themoviedb.org/3/search/",
       apiKey: "8aba2f0fc3e09fb1de7523aaaf3513bc",
       query: "",
-      welcome: true,
-      show: false, // utilizzo la variabile show per mostrare o no il messaggio nell'h1
+      welcome: true, // se true mostro un elemento di default con background di 'benvenuto'. Dopo la chiamata API diventa false
+      show: false, // utilizzo la variabile show per mostrare o no il messaggio 'nessun rislutato trovato'
       results: {
         // array movies
         movie: [],
@@ -78,6 +78,7 @@ export default {
   },
   methods: {
     // funzione che richiama la funzione searching sia in movie che in tv
+    // doppia chiamata API
     search(obj) {
       if (obj.type === "all") {
         this.searching(obj.text, "movie");
@@ -100,15 +101,15 @@ export default {
             },
           })
           .then((resp) => {
-            // salvo la risposta nel relativo array (movie o tv)
+            // ricevo la risposta
+            // visualizzo la risposta nel relativo array di oggetti (movie o tv)
             this.results[type] = resp.data.results;
             console.log(this.results);
             // se non è stato trovato nessun risoltato trasformo show in true.
-            // v-if='show = true' mostra l'h1 con il relativo messaggio
             if(this.results.movie.length === 0 && this.results.tv.length === 0){
-              this.show = true
+              this.show = true // v-if='show = true' mostra il messaggio 'Nessun risultato trovato'
             }
-            this.welcome = false
+            this.welcome = false // non mostro più l'elemento di 'benvenuto'
           })
           .catch((error) => {
             console.log(error);

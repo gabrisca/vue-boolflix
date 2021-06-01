@@ -1,5 +1,6 @@
 <template>
-  <ul class="col-sm-6 col-md-3 col-lg-2 mb-sm-5 m-5 p-sm-2 p-md-2 p-lg-2">
+  <ul class="col-sm-6 col-md-3 col-lg-2 m-3 mb-sm-5 p-sm-2 p-md-2 p-lg-2">
+
     <li>
       <span>Title: </span>
       <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
@@ -7,6 +8,7 @@
         Utilizzo un 'or logico ||'-->
       <h2>{{ card.title || card.name }}</h2>
     </li>
+
     <li>
       <span>Original Title: </span>
       <!-- a secoda che si cerchi un film o una serie tv inserisco entrambi i percorsi da visualizzare.
@@ -14,6 +16,7 @@
         Utilizzo un 'or logico ||'-->
       <h3>{{ card.original_title || card.original_name }}</h3>
     </li>
+
     <li>
       <span class="d-block">Original Language: </span>
       <h4 class="d-inline">{{ card.original_language }}</h4>
@@ -31,6 +34,7 @@
       <!-- percorso alternativo :src img -->
       <!-- :src="require('../assets/img/flag-'+[card.original_language]+'.png')"  -->
     </li>
+
     <li>
       <span>Vote Average: </span>
       <!-- se vote_average non è una stringa vuota... -->
@@ -59,10 +63,12 @@
         </div>
       </div>
     </li>
+
     <li>
       <span>Overview: </span>
+      <!-- richiamo la funzione che taglia la stringa dopo un n numeri di caratteri aggiungendo ...-->
       <p>
-        {{ substringText() }}
+        {{ substringText() }} 
       </p>
     </li>
 
@@ -75,6 +81,7 @@
       :src="getUrl()"
       :alt="`poster ${card.original_title}`"
     />
+    
   </ul>
 </template>
 

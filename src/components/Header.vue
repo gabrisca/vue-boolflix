@@ -43,7 +43,8 @@ export default {
   methods: {
     // funzione che fa partire la ricerca
     startSearch() {
-      // $emit è un evento che viene letto dal padre (APP)
+      // $emit 'search' è un evento che viene letto dal padre (APP)
+      // ho bisogno di due informazioni: il nome dell'evento (search) e un oggetto in cui ho il testo da cercare e il tipo di ricerca da effettuare
       this.$emit("search", {text: this.textToSearch, type: 'all'} );
       console.log(this.textToSearch);
       // svuoto la stringa di ricerca
@@ -54,7 +55,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-/* // importo le variabili */
+/* importo le variabili */
 @import "../assets/style/vars.scss";
 header {
   background: $color-header;
