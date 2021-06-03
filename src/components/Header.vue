@@ -2,6 +2,7 @@
   <header class="d-flex justify-content-between align-items-center ps-5 pe-5">
     <div class="logo">
       <span>boolflix</span>
+      <span>b</span>
     </div>
     <div>
       <form class="d-flex mt-3 mb-3">
@@ -66,6 +67,11 @@ header {
     font-weight: 700;
     margin: 5px;
     margin-right: 10px;
+    span{
+      &:last-child {
+       font-size: 2em;
+      }
+    }
   }
   .mc_btn {
     background-color: $color-btn;
@@ -75,4 +81,21 @@ header {
     }
   }
 }
+@media only screen and (max-width: 450px) {
+  button {
+    display: none;
+  }
+  div.logo span:first-child {
+    display: none;
+  }
+  div.logo span:last-child {
+    display: block;
+  }
+}
+@media only screen and (min-width: 451px) {
+  div.logo span:last-child {
+    display: none;
+  }
+}
+
 </style>

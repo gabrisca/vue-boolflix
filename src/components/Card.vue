@@ -1,5 +1,5 @@
 <template>
-  <ul class="col-sm-6 col-md-3 col-lg-2 m-3 mb-sm-5 p-sm-2 p-md-2 p-lg-2">
+  <ul class="col-sm-5 col-md-4 col-lg-3 col-xl-2 m-3 mb-sm-5 p-sm-2 p-md-2 p-lg-2">
 
     <li>
       <span>Title: </span>
@@ -127,6 +127,9 @@ ul {
   height: 350px;
   overflow-y: hidden;
   overflow-wrap: break-word;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
   &:hover {
     filter: brightness(1.4);
     transform: scale(1.1);
