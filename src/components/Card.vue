@@ -1,5 +1,5 @@
 <template>
-  <ul class="m-3 p-sm-2 p-md-2 p-lg-2">
+  <ul class="m-3 p-2 p-2">
 
     <li>
       <span>Title: </span>
