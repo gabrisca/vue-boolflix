@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       apiURL: "https://api.themoviedb.org/3/search/",
-      apiKey: "8aba2f0fc3e09fb1de7523aaaf3513bc",
+      apiKey: "xxxxxxxxxxxxx",
       query: "",
       welcome: true, // se true mostro un elemento di default con background di 'benvenuto'. Dopo la chiamata API diventa false
       show: false, // utilizzo la variabile show per mostrare o no il messaggio 'nessun rislutato trovato'
